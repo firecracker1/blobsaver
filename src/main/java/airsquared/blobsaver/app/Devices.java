@@ -43,10 +43,13 @@ public final class Devices {
 
     private static final ObservableList<String> AppleTVList = unmodifiableArrayList("Apple TV 2G", "Apple TV 3",
             "Apple TV 3 (2013)", "Apple TV 4 (2015)", "Apple TV 4K", "Apple TV 4K (2021) (AppleTV11,1)", "Apple TV 4K (2022) (AppleTV14,1)");
-    private static final ObservableList<String> visionList = unmodifiableArrayList("Apple Vision Pro (RealityDevice14,1)");
+    private static final ObservableList<String> visionList = unmodifiableArrayList("Apple Vision Pro (RealityDevice14,1)", "Apple Vision Pro (M5) (RealityDevice17,1)");
+    private static final ObservableList<String> homePodList = unmodifiableArrayList("HomePod (AudioAccessory1,1)",
+            "HomePod (AudioAccessory1,2)", "HomePod mini (AudioAccessory5,1)", "HomePod (2nd gen) (AudioAccessory6,1)",
+            "HomePod mini 2 (AudioAccessory11,1)");
 
     private static final ObservableList<String> deviceTypes = unmodifiableArrayList("iPhone", "iPod", "iPad",
-            "AppleTV", "Mac", "T2 Mac", "Apple Vision");
+            "AppleTV", "Mac", "T2 Mac", "Apple Vision", "HomePod");
 
     private static final Map<String, String> boardConfigs = (Map) new Properties();
 
@@ -113,7 +116,7 @@ public final class Devices {
     }
 
     /**
-     * @return either "iPhone", "iPod", "iPad", "AppleTV", "Mac",  "T2 Mac".
+     * @return either "iPhone", "iPod", "iPad", "AppleTV", "Mac", "T2 Mac", "Apple Vision", "HomePod".
      */
     public static String getDeviceType(String identifier) {
         if (identifier.startsWith("iPhone")) {
@@ -130,6 +133,8 @@ public final class Devices {
             return "T2 Mac";
         } else if (identifier.startsWith("RealityDevice")) {
             return "Apple Vision";
+        } else if (identifier.startsWith("AudioAccessory")) {
+            return "HomePod";
         }
         throw new IllegalArgumentException("Not found: " + identifier);
     }
@@ -143,6 +148,7 @@ public final class Devices {
             case "Mac" -> macList;
             case "T2 Mac" -> iBridgeList;
             case "Apple Vision" -> visionList;
+            case "HomePod" -> homePodList;
             default -> FXCollections.emptyObservableList();
         };
     }
@@ -155,6 +161,7 @@ public final class Devices {
             case "Mac" -> "macOS";
             case "T2 Mac" -> "bridgeOS";
             case "Apple Vision" -> "visionOS";
+            case "HomePod" -> "audioOS";
             default -> null;
         };
     }
